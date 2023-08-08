@@ -24,7 +24,7 @@ function draw() {
             text(objects[i].label + " " + percent + "%", objects[i].x, objects[i].y);
             noFill();
             stroke("red");
-            rect(object[i].x, object[i].y, object[i].width, objects[i].height);
+            rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
         }
     }
 }
@@ -41,7 +41,7 @@ function gotResult(error, results) {
     }
     else {
         console.log(results);
-        object = results;
+        objects = results;
 
     }
 }
