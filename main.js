@@ -1,12 +1,13 @@
 img = "";
 status = "";
+objects = [];
 
 
 function setup() {
     canvas = createCanvas(640, 420);
     canvas.center();
     objectDetector = ml5.objectDetector('cocossd', modelLoaded);
-    document.getElementById("status").innerHTML = "Status - detecting objects";
+    document.getElementById("status").innerHTML = "Status - Detecting Objects";
 }
 
 function preload() {
@@ -15,17 +16,17 @@ function preload() {
 
 function draw() {
     image(img, 0, 0, 640, 420);
-    fill("red");
-    text("dog", 45, 75);
-    noFill();
-    stroke("red");
-    rect(30, 60, 450, 350);
-    fill("blue");
-    text("cat", 320, 120);
-    noFill();
-    stroke("blue");
-    rect(300, 90, 270, 320);
-
+    if (status != "") {
+        for (i = 0; i < objects.length; i++) {
+            document.getElementById("status").innerHTML = "Status - Object Detected";
+            fill("red");
+            percent = floor(objects[i].confidence * 100);
+            text(objects[i].label + " " + percent + "%", objects[i].x, objects[i].y);
+            noFill();
+            stroke("red");
+            rect(object[i].x, object[i].y, object[i].width, objects[i].height);
+        }
+    }
 }
 
 function modelLoaded() {
@@ -34,11 +35,14 @@ function modelLoaded() {
     objectDetector.detect(img, gotResult);
 }
 
-function gotResult(error,results) {
-    if(error) {
+function gotResult(error, results) {
+    if (error) {
         console.log(error);
     }
     else {
         console.log(results);
+        object = results;
+
     }
 }
+
